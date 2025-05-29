@@ -1,5 +1,3 @@
-// https://github.com/Dherse/typst-glossary
-
 #let glossary_entries = state("glossary_entries", (:))
 
 #let set-glossary-table(gls) = {
@@ -19,6 +17,6 @@
       tbl.insert(key, itm + (appeared: true))
       tbl
     })
-    [#itm.description (#itm.long, #itm.short)]
+    [#itm.description (#itm.long, #itm.short) ]
   }
 }
