@@ -1,7 +1,9 @@
 #import "pages/cover.typ": cover
+#import "pages/decl.typ": decl
 
 #let documentclass(
   info: (:),
+  twoside: false,
   anonymous: false,
 ) = {
   return (
@@ -11,5 +13,11 @@
         ..args, 
         info: info)
     },
+    decl: (..args) => decl(
+      anonymous: anonymous,
+      twoside: twoside,
+      ..args,
+      info: info,
+    ),
   )
 }
