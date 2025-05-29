@@ -36,8 +36,8 @@
     #set par(
       justify: true,
       first-line-indent: 2em,
-      spacing: 2em,
-      leading: 1.5em)
+      spacing: 1.5 * 15.6pt - 0.7em,
+      leading: 1.5 * 15.6pt - 0.7em)
     #body
 
     #text(font: "Times New Roman", size: 12pt)[*Key words:* #keywords.join("; ")]
