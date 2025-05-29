@@ -107,12 +107,11 @@
   pagebreak(weak: true, to: if twoside { "odd" })
 
   set align(center)
-  set page(margin: 0pt)
 
   if anonymous {
-    v(267pt)
+    v(267pt - 3.3cm)
   } else {
-    v(130pt)
+    v(130pt - 3.3cm)
     image("../assets/tyut-logo.jpg", width: 12.11cm)
     v(2pt)
   }

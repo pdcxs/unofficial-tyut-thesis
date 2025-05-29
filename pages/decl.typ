@@ -13,24 +13,6 @@
 
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  set page(
-    margin: (
-      top: 3.3cm,
-      bottom: 2.3cm,
-      left: 2.8cm,
-      right: 2.3cm,
-    ),
-  )
-
-  set heading(bookmarked: false)
-
-  show heading: it => {
-    set align(center)
-    set text(font: "SimHei", size: zh(3))
-    it
-    v(10pt)
-  }
-
   set par(
     first-line-indent: (amount: 2em, all: true),
     leading: 1.5em,
@@ -38,7 +20,9 @@
 
   [
     #v(24pt)
-    = 声明及论文使用的授权
+    #align(center)[
+      #text(font: "SimHei", size: zh(3))[声明及论文使用的授权]]
+    #v(10pt)
 
     #set text(size: zh(4), font: "SimSun")
     本人郑重声明：所呈交的毕业设计（论文）是本人在指导教师的指导下取得的研究成果，毕业设计（论文）写作严格遵循学术规范。除了文中特别加以标注和致谢的地方外，毕业设计（论文）中不包含其他人已经发表或撰写的研究成果。因本毕业设计（论文）引起的法律结果完全由本人承担。太原理工大学享有本毕业设计（论文）的研究成果。
