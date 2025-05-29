@@ -8,7 +8,7 @@ description = "非官方太原理工大学本科毕业论文 typst 模板。"
 repository = "https://github.com/pdcxs/unofficial-tyut-thesis"
 keywords = ["Taiyuan University of Technology", "TYUT", "thesis"]
 categories = ["thesis"]
-exclude = ["imgs"]
+exclude = []
 compiler = "0.13.0"
 
 [template]
