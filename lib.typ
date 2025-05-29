@@ -5,6 +5,8 @@
 #import "layouts/doc.typ": doc
 #import "layouts/preface.typ": preface
 #import "pages/outline-page.typ": outline-page
+#import "layouts/mainmatter.typ": mainmatter
+#import "layouts/glossary.typ": gloss, set-glossary-table
 
 #let documentclass(
   info: (:),
@@ -49,5 +51,11 @@
       twoside: twoside,
       ..args,
     ),
+    mainmatter: (..args) => mainmatter(
+      twoside: twoside,
+      ..args,
+    ),
+    gloss: gloss,
+    set-glossary-table: set-glossary-table,
   )
 }
