@@ -1,4 +1,4 @@
-#import "@preview/unofficial-tyut-thesis:0.1.0": documentclass
+#import "../lib.typ": documentclass
 
 #let (
   doc,
@@ -33,6 +33,8 @@
     // supervisor-sign-date: datetime(year: 1997, month: 1, day:1), // 承诺书导师签名日期
   ),
   bibliography: bibliography.with("references.bib"),
+  // font: "KaiTi", // Main Font
+  // reference-font: ("Times New Roman", "SimSun"),
 )
 
 #show: doc
