@@ -1,4 +1,4 @@
-#import "../lib.typ": documentclass
+#import "@preview/unofficial-tyut-thesis:0.1.0": documentclass
 
 #let (
   doc,
@@ -24,6 +24,7 @@
     author: "爱因斯坦",
     student-id: "11001101010086",
     department: "XX学院",
+    session: "20XX",
     major: "XX专业",
     class: "XX班",
     supervisor: ("张三", "教授"),
