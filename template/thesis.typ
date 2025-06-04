@@ -1,4 +1,4 @@
-#import "@preview/unofficial-tyut-thesis:0.1.0": documentclass
+#import "@preview/unofficial-tyut-thesis:0.1.1": documentclass
 
 #let (
   doc,
