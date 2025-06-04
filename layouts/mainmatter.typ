@@ -74,6 +74,7 @@
     set text(
       font: array-at(heading-font, it.level),
       size: array-at(heading-size, it.level),
+      bottom-edge: "descender",
       weight: array-at(heading-weight, it.level),
       ..unpairs(heading-text-args-lists.map(pair => (pair.at(0), array-at(pair.at(1), it.level)))),
     )
