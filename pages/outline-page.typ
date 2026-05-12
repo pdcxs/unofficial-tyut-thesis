@@ -1,4 +1,4 @@
-#import "@preview/pointless-size:0.1.1": zh
+#import "@preview/pointless-size:0.1.2": zh
 
 #let outline-page(
   twoside: false,
@@ -32,7 +32,7 @@
   {
     set align(center)
     text(..title-text-args, title)
-    text(size:0em, fill:white)[#heading(
+    text(size: 0em, fill: white)[#heading(
       numbering: none,
       level: 1,
       outlined: false,

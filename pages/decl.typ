@@ -1,4 +1,4 @@
-#import "@preview/pointless-size:0.1.1": zh
+#import "@preview/pointless-size:0.1.2": zh
 #let decl(
   anonymous: false,
   twoside: false,

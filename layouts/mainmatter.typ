@@ -1,7 +1,7 @@
 #import "@preview/numbly:0.1.0": numbly
-#import "@preview/pointless-size:0.1.1": zh
+#import "@preview/pointless-size:0.1.2": zh
 #import "@preview/i-figured:0.2.4"
-#import "@preview/cuti:0.3.0": show-cn-fakebold
+#import "@preview/cuti:0.4.0": show-cn-fakebold
 
 #let mainmatter(
   twoside: false,

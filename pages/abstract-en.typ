@@ -1,5 +1,5 @@
-#import "@preview/cuti:0.3.0": show-cn-fakebold
-#import "@preview/pointless-size:0.1.1": zh
+#import "@preview/cuti:0.4.0": show-cn-fakebold
+#import "@preview/pointless-size:0.1.2": zh
 
 #let abstract-en(
   twoside: false,
@@ -7,7 +7,7 @@
   outlined: true,
   info: (:),
   keywords: (),
-  body
+  body,
 ) = {
   if type(info.title-en) == str {
     info.title-en = info.title-en.split("\n")
@@ -23,21 +23,23 @@
         level: 1,
         outlined: outlined,
         bookmarked: outlined,
-        outline-title)
+        outline-title,
+      )
     ]
     #align(center)[
-    #text(font: "Times New Roman", size: 14pt, weight: "bold")[
-      #info.title-en.join("")
-    ]
-    #v(2em)
-    #text(size: 12pt, font: "Times New Roman", weight: "bold")[Abstract]
+      #text(font: "Times New Roman", size: 14pt, weight: "bold")[
+        #info.title-en.join("")
+      ]
+      #v(2em)
+      #text(size: 12pt, font: "Times New Roman", weight: "bold")[Abstract]
     ]
     #set text(size: 12pt, font: "Times New Roman")
     #set par(
       justify: true,
       first-line-indent: 2em,
       spacing: 1.5 * 15.6pt - 0.7em,
-      leading: 1.5 * 15.6pt - 0.7em)
+      leading: 1.5 * 15.6pt - 0.7em,
+    )
     #body
 
     #text(font: "Times New Roman", size: 12pt)[*Key words:* #keywords.join("; ")]

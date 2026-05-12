@@ -1,5 +1,5 @@
-#import "@preview/pointless-size:0.1.1": zh
-#import "@preview/cuti:0.3.0": show-cn-fakebold
+#import "@preview/pointless-size:0.1.2": zh
+#import "@preview/cuti:0.4.0": show-cn-fakebold
 #import "../utils/justify-text.typ": justify-text
 
 #let cover(

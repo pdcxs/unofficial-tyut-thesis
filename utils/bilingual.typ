@@ -1,4 +1,5 @@
 #import "@preview/gb7714-bilingual:0.2.3": gb7714-bibliography
+
 #let bibliography(..args) = gb7714-bibliography(
   full-control: entries => {
     context {

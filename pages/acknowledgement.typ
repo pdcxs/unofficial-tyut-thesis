@@ -1,4 +1,4 @@
-#import "@preview/pointless-size:0.1.1": zh
+#import "@preview/pointless-size:0.1.2": zh
 // 致谢页
 #let acknowledgement(
   // documentclass 传入参数
@@ -13,8 +13,8 @@
   if not anonymous {
     pagebreak(weak: true, to: if twoside { "even" })
     [
-      #show heading: it => text(fill:white, size: 0pt, it)
-      #heading(level: 1, numbering: none, outlined: outlined, bookmarked: outlined, title) 
+      #show heading: it => text(fill: white, size: 0pt, it)
+      #heading(level: 1, numbering: none, outlined: outlined, bookmarked: outlined, title)
 
       #align(center)[
         #set text(size: zh(-4), font: "SimHei")
