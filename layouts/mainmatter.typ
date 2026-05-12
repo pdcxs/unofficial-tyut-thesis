@@ -22,7 +22,7 @@
     "{1}.{2}.{3}.{4}.{5}.{6} ",
   ),
   heading-weight: ("regular",),
-  heading-above: (2 * 15.6pt - 0.7em, 1.5 * 15.6pt - 0.7em),
+  heading-above: (2 * 15.6pt - 0.7em, 1.5 * 15.6pt - 0.4em),
   heading-below: (2 * 15.6pt - 0.7em, 1.5 * 15.6pt - 0.7em),
   heading-pagebreak: (true, false),
   heading-size: (zh(-3), zh(4), zh(-4)),
@@ -128,6 +128,9 @@
     caption-style = (font: ("Times New Roman", "SimHei"))
   }
   show figure.caption: it => text(size: caption-size, ..caption-style, it)
+
+  // 大表格和代码可跨页
+  show figure: set block(breakable: true)
 
   // 去除空行连接时中文中间的空格
   // https://www.w3.org/TR/clreq/#table_of_punctuation_marks

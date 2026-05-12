@@ -1,6 +1,6 @@
 [package]
 name = "unofficial-tyut-thesis"
-version = "0.1.1"
+version = "0.2.1"
 entrypoint = "lib.typ"
 authors = ["pdcxs"]
 license = "MIT"
@@ -9,7 +9,7 @@ repository = "https://github.com/pdcxs/unofficial-tyut-thesis"
 keywords = ["Taiyuan University of Technology", "TYUT", "thesis"]
 categories = ["thesis"]
 exclude = []
-compiler = "0.13.0"
+compiler = "0.14.2"
 
 [template]
 path = "template"
