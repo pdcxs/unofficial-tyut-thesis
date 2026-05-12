@@ -1,4 +1,5 @@
-#import "@preview/unofficial-tyut-thesis:0.2.1": documentclass
+#import "../lib.typ": documentclass
+#import "@preview/gb7714-bilingual:0.2.3": init-gb7714
 #import "@preview/codly:1.3.0": codly-init // 如果不需要插入源代码，可以删除此行代码
 #import "@preview/algo:0.3.6": * // 如不需要伪代码，可以删除此行代码
 
@@ -13,7 +14,7 @@
   mainmatter,
   gloss,
   make-glossary-table,
-  bilingual-bibliography,
+  bibliography,
   acknowledgement,
   twoside,
   appendix,
@@ -35,7 +36,6 @@
     // author-sign-date: datetime.today(), // 承诺书作者签名日期
     // supervisor-sign-date: datetime(year: 1997, month: 1, day:1), // 承诺书导师签名日期
   ),
-  bib: read("references.bib"),
   // font: "KaiTi", // Main Font
   // reference-font: ("Times New Roman", "SimSun"),
 )
@@ -43,6 +43,8 @@
 #show: doc
 #show: codly-init.with() // 如果不需要插入源代码，可以删除此行代码
 #cover()
+
+#show: init-gb7714.with(read("references.bib"), style: "numeric", version: "2025")
 
 // #decl(
 //   author-signature: place(
@@ -57,6 +59,7 @@
 #decl()
 
 #show: preface
+
 
 #abstract(keywords: ("Typst", "TYUT", "Template", "Thesis", "毕业论文"))[
   本项目是基于 Typst 制作的一款适用于太原理工大学本科毕设论文的模板，注意是非官方模板，因此不被承认的风险，请谨慎使用。
@@ -76,6 +79,7 @@
 #pagebreak()
 
 #show: mainmatter
+
 
 = 绪论
 == 基本书写
@@ -278,7 +282,7 @@ $
 
 
 // 参考文献
-#bilingual-bibliography()
+#bibliography()
 
 
 #acknowledgement[
