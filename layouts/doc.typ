@@ -1,4 +1,3 @@
-#import "@preview/gb7714-bilingual:0.2.3": init-gb7714, multicite
 #let doc(
   info: (:),
   fallback: false,
@@ -9,11 +8,8 @@
     left: 2.8cm,
     right: 2.3cm,
   ),
-  bib: "",
   it,
 ) = {
-  show: init-gb7714.with(bib, style: "numeric", version: "2025")
-
   if type(info.title) == str {
     info.title = info.title.split("\n")
   }
