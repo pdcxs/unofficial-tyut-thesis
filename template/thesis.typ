@@ -1,4 +1,6 @@
-#import "@preview/unofficial-tyut-thesis:0.1.1": documentclass
+#import "@preview/unofficial-tyut-thesis:0.2.1": documentclass
+#import "@preview/codly:1.3.0": codly-init // 如果不需要插入源代码，可以删除此行代码
+#import "@preview/algo:0.3.6": * // 如不需要伪代码，可以删除此行代码
 
 #let (
   doc,
@@ -10,7 +12,7 @@
   outline-page,
   mainmatter,
   gloss,
-  set-glossary-table,
+  make-glossary-table,
   bilingual-bibliography,
   acknowledgement,
   twoside,
@@ -33,13 +35,13 @@
     // author-sign-date: datetime.today(), // 承诺书作者签名日期
     // supervisor-sign-date: datetime(year: 1997, month: 1, day:1), // 承诺书导师签名日期
   ),
-  bibliography: bibliography.with("references.bib"),
+  bib: read("references.bib"),
   // font: "KaiTi", // Main Font
   // reference-font: ("Times New Roman", "SimSun"),
 )
 
 #show: doc
-
+#show: codly-init.with() // 如果不需要插入源代码，可以删除此行代码
 #cover()
 
 // #decl(
@@ -104,7 +106,7 @@
 
 == 术语
 
-#set-glossary-table((
+#make-glossary-table((
   (
     key: "urllc",
     short: "URLLC",
@@ -126,7 +128,7 @@
 
 == 图片和表格
 
-引用@tbl:timing，引用@tbl:timing-tlt，以及@fig:some-figure。引用图表时，表格和图片分别需要加上 `tbl:`和`fig:` 前缀才能正常显示编号。
+引用@tbl:timing，引用@tbl:timing-tlt，以及@fig:some-figure。引用图表时，表格和图片分别需要加上 `tbl:`和`fig:` 前缀才能正常显示编号。图片、表格以及引用的标签，尽量不要添加编号信息，以真正的内容作为标签。比如，`<root-solver-equation>` 是一个好标签，`<equation-5>` 是一个糟糕的标签。
 
 #align(
   center,
@@ -160,9 +162,12 @@
   ),
 )
 
+如果图片太大导致空白区域太大，可以添加`placement`选项，比如@fig:some-figure 所展示的用法。
+
 #figure(
   image("imgs/author-signature.jpg", width: 50%),
   numbering: none,
+  placement: auto,
   caption: [图片测试],
 ) <some-figure>
 
@@ -180,11 +185,11 @@
   caption: [多图示例],
 ) <multiple-figures>
 
-@fig:multiple-figures 是一个多图示范的例子。
+@fig:multiple-figures 是一个多图合并的例子。
 
 == 引用
 
-直接引用相关 `bib` 文件中的条目即可，如这里引用了@deepLearn。中文引用@蒋有绪1998 @中国力学学会1990 也可以正常显示。
+直接引用相关 `bib` 文件中的条目即可，如这里引用了@deepLearn。中文引用@蒋有绪1998 @中国力学学会1990 也可以正常显示。默认引用为目标形式，如果想要取消目标，则需要这样：另见#cite(<deepLearn>, form: "prose")的详细分析。引用也可以添加作者，比如：#cite(<蒋有绪1998>, form: "author")在#cite(<蒋有绪1998>, form: "prose")中，提出了重要的理论框架。
 
 
 = 数学公式与代码
@@ -219,13 +224,13 @@ $
 
 === 原始效果
 
-行内代码块需要包裹在反引号内，如 `http`，块级代码则需要以三个反引号包裹，后面加上语言名称（可选），如：
+行内代码块需要包裹在反引号内，如 `http`，块级代码则需要以三个反引号包裹，后面加上语言名称（可选），如@lst:cpp-code 所示。
+如果需要引用代码，需要加上`lst`，如这里引用了@lst:cpp-code。
 
 #figure(
   ```cpp
   #include <vector>
   #include <iostream>
-
   using std::cout;
   using std::endl;
   using std::vector;
@@ -238,30 +243,10 @@ $
     return 0;
   }
   ```,
+  placement: auto,
   caption: [代码块展示],
 ) <cpp-code>
 
-如果需要引用代码，需要加上`lst`，如这里引用了@lst:cpp-code。
-
-=== 添加行号
-
-如果需要添加行号，推荐使用 `@preview/zebraw` 包
-
-#import "@preview/zebraw:0.5.5": zebraw
-#show: zebraw
-
-#figure(
-  ```haskell
-  import Data.List (partition)
-
-  qsort :: Ord a => [a] -> [a] -> [a]
-  qsort [] = []
-  qsort (x:xs) = qsort ls ++ [x] ++ qsort rs
-   where
-    (ls, rs) = partition (<x) xs
-  ```,
-  caption: [Haskell 代码中的快速排序],
-)
 
 ==== 四级标题不会出现在目录中
 
@@ -270,9 +255,8 @@ $
 
 === 伪代码
 
-伪代码可以用 `algo` 库：
+伪代码可以用 `algo` 库，如@alg:fib 所示。
 
-#import "@preview/algo:0.3.6": algo, i, d, comment, code
 
 #figure(
   algo(
@@ -282,7 +266,7 @@ $
     if $n < 0$:#i\ // use #i to indent the following lines
     return null#d\ // use #d to dedent the following lines
     if $n = 0$ or $n = 1$:#i #comment[you can also]\
-    return $n$#d #comment[add comments!]\
+    return $n$#d #comment[添加 comments!]\
     return #smallcaps("Fib")$(n-1) +$ #smallcaps("Fib")$(n-2)$
   ],
   caption: [斐波那契数列],
@@ -294,7 +278,7 @@ $
 
 
 // 参考文献
-#bilingual-bibliography(full: false)
+#bilingual-bibliography()
 
 
 #acknowledgement[
@@ -305,6 +289,8 @@ $
   感谢我的学友和朋友对我的关心和帮助。
 
 ]
+
+// 如果不需要附录，请删除后续内容
 
 #show: appendix
 
@@ -318,7 +304,7 @@ $
 == 到达曲线的说明
 
 $
-  lr(angle.l f, alpha angle.r) = sup_(0 <= t <= s) [f(x-t) + f(t) <= alpha]
+  lr(chevron.l f, alpha chevron.r) = sup_(0 <= t <= s) [f(x-t) + f(t) <= alpha]
 $ <appendix-equation>
 
 #figure(

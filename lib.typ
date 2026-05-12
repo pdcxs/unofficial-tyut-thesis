@@ -6,16 +6,16 @@
 #import "layouts/preface.typ": preface
 #import "pages/outline-page.typ": outline-page
 #import "layouts/mainmatter.typ": mainmatter
-#import "layouts/glossary.typ": gloss, set-glossary-table
-#import "utils/bilingual-bibliography.typ": bilingual-bibliography
+#import "layouts/glossary.typ": gloss, make-glossary-table
 #import "pages/acknowledgement.typ": acknowledgement
 #import "layouts/appendix.typ": appendix
+#import "@preview/gb7714-bilingual:0.2.3": gb7714-bibliography
 
 #let documentclass(
   info: (:),
   twoside: false,
   anonymous: false,
-  bibliography: none,
+  bib: "",
   font: "SimSun",
   reference-font: ("Times New Roman", "SimSun"),
 ) = {
@@ -24,6 +24,7 @@
       doc(
         ..args,
         info: info + args.named().at("info", default: (:)),
+        bib: bib,
       )
     },
     cover: (..args) => {
@@ -65,11 +66,38 @@
       ..args,
     ),
     gloss: gloss,
-    set-glossary-table: set-glossary-table,
+    make-glossary-table: make-glossary-table,
     bilingual-bibliography: (..args) => {
-      bilingual-bibliography(
-        bibliography: bibliography,
-        font: reference-font,
+      gb7714-bibliography(
+        full-control: entries => {
+          context {
+            if entries.len() == 0 {
+              return
+            }
+
+            let max-width = measure([[#{ entries.len() }]]).width
+
+            let spacing = 0.5em
+            let uniform-hanging = max-width + spacing
+
+            for e in entries {
+              // let num = [#e.order]
+              // par(
+              //   hanging-indent: uniform-hanging,
+              //   first-line-indent: 0pt,
+              // )[#h(max-width - measure([[#num]]).width)[#num]#h(spacing)#e.labeled-rendered]
+              let num-content = [[#e.order]] // 带方括号
+              let num-width = measure(num-content).width
+              par(
+                hanging-indent: uniform-hanging,
+                first-line-indent: 0pt,
+              )[
+                #box(width: max-width)[#align(right)[#num-content]]#h(spacing)#e.labeled-rendered
+              ]
+              v(0.2em)
+            }
+          }
+        },
         ..args,
       )
     },
@@ -83,7 +111,8 @@
     },
     appendix: (..args) => {
       appendix(
-        ..args)
+        ..args,
+      )
     },
     twoside: twoside,
   )
