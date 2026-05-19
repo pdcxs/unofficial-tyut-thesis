@@ -60,21 +60,41 @@
 
 #show: preface
 
+// 术语列表
+#make-glossary-table((
+  (
+    key: "urllc",
+    short: "URLLC",
+    long: "Ultra-Reliable and Low Latency Communications",
+    description: "超可靠低延迟通信",
+  ),
+  (
+    key: "api",
+    short: "API",
+    long: "Application Program Interface",
+    description: "应用程序接口",
+  ),
+  (
+    key: "tyut",
+    short: "TYUT",
+    long: "Taiyuan University of Technology",
+    description: "太原理工大学",
+  ),
+));
 
 #abstract(keywords: ("Typst", "TYUT", "Template", "Thesis", "毕业论文"))[
-  本项目是基于 Typst 制作的一款适用于太原理工大学本科毕设论文的模板，注意是非官方模板，因此不被承认的风险，请谨慎使用。
+  本项目是基于 Typst 制作的一款适用于#gloss("tyut")本科毕设论文的模板，注意此模板不是#gloss("tyut")官方模板，因此有不被承认的风险，请谨慎使用。
 
   使用本项目需要具备基本的 Typst 使用知识，学习大概需要1小时，需要阅读#link("https://typst.app/docs/tutorial")[#text(fill: blue)[#underline[官方入门教程]]]。
 ]
 
 #abstract-en(keywords: ("Typst", "TYUT", "Template", "Thesis"))[
-  This project is based on Typst to produce a template for undergraduate BSc thesis of Taiyuan University of Technology, note that it is an unofficial template, so the risk of not being recognized, please use with caution.
+  This project is based on Typst to produce a template for undergraduate BSc thesis of Taiyuan University of Technology, note that it is an unofficial template, so there exists the risk of not being recognized, please use with caution.
 
   Using this project requires basic knowledge of using Typst, which takes about 1 hour to learn and requires reading #link("https://typst.app/docs/tutorial")[#text(fill: blue)[#underline[Official Getting Started Tutorial]]].
 ]
 
 #outline-page()
-
 
 #pagebreak()
 
@@ -110,22 +130,7 @@
 
 == 术语
 
-#make-glossary-table((
-  (
-    key: "urllc",
-    short: "URLLC",
-    long: "Ultra-Reliable and Low Latency Communications",
-    description: "超可靠低延迟通信",
-  ),
-  (
-    key: "api",
-    short: "API",
-    long: "Application Program Interface",
-    description: "应用程序接口",
-  ),
-));
-
-如果论文中出现缩写，推荐使用 `gloss` 进行管理，先将相关内容放入到 `set-glossary-table` 中，之后再使用，例如，第一次出现#gloss("urllc")时，会写出对应的中文内容、英文全称和缩写，之后再出现
+如果论文中出现缩写，推荐使用 `gloss` 进行管理，先将相关内容放入文档开头处的 `make-glossary-table` 中，之后再使用，例如，第一次出现#gloss("urllc")时，会写出对应的中文内容、英文全称和缩写，之后再出现
 #gloss("urllc")时，则只出现缩写。再举一个例子：#gloss("api")应当是全称，#gloss("api")和#gloss("api")应当只显示缩写。
 
 如果引用了列表中没有出现的术语，则会出现红色警告，例如：#gloss("vanet")
