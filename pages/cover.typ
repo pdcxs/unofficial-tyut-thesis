@@ -81,17 +81,28 @@
   }
 
   let info-long-value(key, body) = {
-    grid.cell(
-      colspan: 3,
-      info-value(
-        key,
-        if anonymous and (key in anonymous-info-keys) {
-          "██████████"
-        } else {
-          body
-        },
-      ),
-    )
+    let processed = if anonymous and (key in anonymous-info-keys) {
+      "██████████"
+    } else {
+      body
+    }
+
+    if type(processed) == str and processed.contains("\n") {
+      let lines = processed.split("\n")
+      grid.cell(
+        colspan: 3,
+        stack(
+          spacing: 1em,
+          ..lines.map(line => info-value(key, line)),
+        ),
+      )
+    } else {
+      // 原逻辑
+      grid.cell(
+        colspan: 3,
+        info-value(key, processed),
+      )
+    }
   }
 
   let anonymous-text(key, body) = {
@@ -149,10 +160,12 @@
     ),
   )
 
-  v(40pt)
-  text(
-    font: ("Times New Roman", "KaiTi"),
-    size: zh(3),
-    "完成日期：" + info.submit-date.display("[year]年[month padding:none]月"),
+  place(
+    center + bottom,
+    text(
+      font: ("Times New Roman", "KaiTi"),
+      size: zh(3),
+      "完成日期：" + info.submit-date.display("[year]年[month padding:none]月"),
+    ),
   )
 }
