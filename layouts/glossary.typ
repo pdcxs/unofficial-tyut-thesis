@@ -25,6 +25,10 @@
       tbl.insert(key, itm + (appeared: true))
       tbl
     })
-    [#itm.description (#itm.long, #itm.short) ]
+    if itm.description != "" {
+      [#itm.description (#itm.long, #itm.short) ]
+    } else {
+      [#itm.long (#itm.short) ]
+    }
   }
 }
