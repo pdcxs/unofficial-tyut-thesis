@@ -15,6 +15,7 @@
   gloss,
   make-glossary-table,
   bibliography,
+  multicite,
   acknowledgement,
   twoside,
   appendix,
@@ -26,6 +27,7 @@
     title-en: " A Typst Template for TYUT Thesis - Unofficial Edition",
     author: "爱因斯坦",
     student-id: "11001101010086",
+    // department: "计算机科学与技术学院\n（大数据学院）", // 多行内容可以添加\n
     department: "XX学院",
     session: "20XX",
     major: "XX专业",
@@ -80,6 +82,12 @@
     long: "Taiyuan University of Technology",
     description: "太原理工大学",
   ),
+  (
+    key: "yolo",
+    short: "YOLO",
+    long: "You Only Look Once",
+    description: "",
+  ),
 ));
 
 #abstract(keywords: ("Typst", "TYUT", "Template", "Thesis", "毕业论文"))[
@@ -128,10 +136,38 @@
   + 表项4
 + 表项5
 
+使用如下方式更改有续列表的编号样式：
+
+#[
+  #set enum(numbering: "A.a)")
+  + 表项1
+  + 表项2
+    + 表项3
+    + 表项4
+  + 表项5
+]
+
+或者更复杂的自定义方案：
+
+#[
+  #enum(
+    numbering: "A.",
+    enum.item(1)[表项1],
+    enum.item(2)[表项2
+      #enum(
+        numbering: (..nums) => "B." + numbering("a)", ..nums),
+        enum.item(1)[表项3],
+        enum.item(2)[表项4],
+      )
+    ],
+    enum.item(3)[表项5],
+  )
+]
+
 == 术语
 
-如果论文中出现缩写，推荐使用 `gloss` 进行管理，先将相关内容放入文档开头处的 `make-glossary-table` 中，之后再使用，例如，第一次出现#gloss("urllc")时，会写出对应的中文内容、英文全称和缩写，之后再出现
-#gloss("urllc")时，则只出现缩写。再举一个例子：#gloss("api")应当是全称，#gloss("api")和#gloss("api")应当只显示缩写。
+如果论文中出现缩写，推荐使用 gloss 工具进行管理，先将相关内容放入文档开头处的 make-glossary-table 中，之后再使用，例如，第一次出现#gloss("urllc")时，会写出对应的中文内容、英文全称和缩写，之后再出现
+#gloss("urllc")时，则只出现缩写。再举一个例子：#gloss("api")应当是全称，#gloss("api")和#gloss("api")应当只显示缩写。如果术语没有中文翻译，则可以使其 description 为空字符串，例如#gloss("yolo")，第一次出现时只显示全称，之后再出现则只显示缩写，如#gloss("yolo")。
 
 如果引用了列表中没有出现的术语，则会出现红色警告，例如：#gloss("vanet")
 
@@ -192,13 +228,16 @@
       stack(image("imgs/author-signature.jpg"), [(c) 子图3]), stack(image("imgs/author-signature.jpg"), [(d) 子图4]),
     )],
   caption: [多图示例],
+  placement: auto,
 ) <multiple-figures>
 
 @fig:multiple-figures 是一个多图合并的例子。
 
 == 引用
 
-直接引用相关 `bib` 文件中的条目即可，如这里引用了@deepLearn。中文引用@蒋有绪1998 @中国力学学会1990 也可以正常显示。默认引用为目标形式，如果想要取消目标，则需要这样：另见#cite(<deepLearn>, form: "prose")的详细分析。引用也可以添加作者，比如：#cite(<蒋有绪1998>, form: "author")在#cite(<蒋有绪1998>, form: "prose")中，提出了重要的理论框架。
+直接引用相关 `bib` 文件中的条目即可，如这里引用了@deepLearn。中文引用@蒋有绪1998 也可以正常显示。引用会按照出现的顺序自动编号，因此，尽量不要在引用的标签中加入序号信息。例如，`ref6` 是一个糟糕的引用标签，`<Strange2012>` 则是一个不错的引用标签。默认引用为上标形式，如果想要采用非上标形式，则需要这样：另见#cite(<deepLearn>, form: "prose")的详细分析。引用也可以添加作者，比如：#cite(<蒋有绪1998>, form: "author")在#cite(<蒋有绪1998>, form: "prose")中，提出了重要的理论框架。
+
+当需要在同一个地方引用多个文献时，需要使用 `multicite` 函数，如#multicite("蒋有绪1998", "deepLearn", "中国力学学会1990")，此时，引用会自动进行合并，如果不是连续的序号，则会自动断开，如#multicite("deepLearn", "中国力学学会1990")。此外，如果需要非上标形式，则可以：#multicite("蒋有绪1998", "deepLearn", "中国力学学会1990", form: "prose")。需要注意的是，`multicite` 不支持直接引用作者，即 `form` 字段不支持 `author` 选项。
 
 
 = 数学公式与代码

@@ -10,6 +10,7 @@
 #import "pages/acknowledgement.typ": acknowledgement
 #import "layouts/appendix.typ": appendix
 #import "utils/bilingual.typ": bibliography
+#import "@preview/gb7714-bilingual:0.2.3": multicite
 
 #let documentclass(
   info: (:),
@@ -66,6 +67,7 @@
     gloss: gloss,
     make-glossary-table: make-glossary-table,
     bibliography: bibliography,
+    multicite: multicite,
     acknowledgement: (..args) => {
       acknowledgement(
         anonymous: anonymous,

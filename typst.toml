@@ -1,6 +1,6 @@
 [package]
 name = "unofficial-tyut-thesis"
-version = "0.2.1"
+version = "0.2.2"
 entrypoint = "lib.typ"
 authors = ["pdcxs"]
 license = "MIT"
@@ -15,4 +15,3 @@ compiler = "0.14.0"
 path = "template"
 entrypoint = "thesis.typ"
 thumbnail = "thumbnail.png"
-
