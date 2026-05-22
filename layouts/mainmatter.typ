@@ -2,6 +2,7 @@
 #import "@preview/pointless-size:0.1.2": zh
 #import "@preview/i-figured:0.2.4"
 #import "@preview/cuti:0.4.0": show-cn-fakebold
+#import "@preview/itemize:0.2.0" as el
 
 #let mainmatter(
   twoside: false,
@@ -108,6 +109,9 @@
   )
   show raw: set text(font: mono-font)
   show raw.where(block: true): set par(leading: 0.55em)
+
+  // 编号对齐
+  show: el.default-enum-list
 
   // 脚注样式
   show footnote.entry: set text(font: ("Times New Roman", font), size: zh(5))
