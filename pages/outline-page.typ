@@ -71,7 +71,10 @@
             },
           )
           box(width: 1fr, inset: (x: .25em), fill.at(entry.level - 1, default: fill.last()))
-          entry.page()
+          {
+            show text: set text(size: zh(-4), font: ("Times New Roman", font))
+            entry.page()
+          }
         },
         gap: 0pt,
       ),
