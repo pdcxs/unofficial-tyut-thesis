@@ -14,7 +14,7 @@
   text-args: auto,
   heading-font: auto,
   first-line-indent: (amount: 2em, all: true),
-  mono-font: ("Courier New", "LXGW WenKai Mono GB"),
+  mono-font: ("Courier New", "LXGW WenKai Mono"),
   numbering: numbly(
     "{1}. ",
     "{1}.{2} ",
