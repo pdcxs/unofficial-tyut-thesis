@@ -15,7 +15,7 @@ jobs:
 
       # 2. 检出目标仓库（tyut-thesis-template），使用 PAT 认证
       - name: Checkout target repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
         with:
           repository: pdcxs/tyut-thesis-template
           token: ${{ secrets.TARGET_REPO_TOKEN }}
