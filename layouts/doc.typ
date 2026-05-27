@@ -1,6 +1,6 @@
 #let doc(
   info: (:),
-  fallback: false,
+  fallback: true,
   lang: "zh",
   margin: (
     top: 3.3cm,
