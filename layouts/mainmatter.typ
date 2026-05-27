@@ -3,6 +3,7 @@
 #import "@preview/i-figured:0.2.4"
 #import "@preview/cuti:0.4.0": show-cn-fakebold
 #import "@preview/itemize:0.2.0" as el
+#import "@preview/cjk-unbreak:0.2.3": remove-cjk-break-space
 
 #let mainmatter(
   twoside: false,
@@ -137,12 +138,7 @@
   show figure: set block(breakable: true)
 
   // 去除空行连接时中文中间的空格
-  // https://www.w3.org/TR/clreq/#table_of_punctuation_marks
-  let han-or-punct = "[-\p{sc=Hani}。．，、：；！‼？⁇⸺——……⋯⋯～–—·・‧/／「」『』“”‘’（）《》〈〉【】〖〗〔〕［］｛｝＿﹏●•]"
-  show regex(han-or-punct + " " + han-or-punct): it => {
-    let (a, _, b) = it.text.clusters()
-    a + b
-  }
+  show: remove-cjk-break-space
 
   it
 }
