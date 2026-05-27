@@ -1,0 +1,71 @@
+name: 同步到 tyut-thesis-template
+
+on:
+  push:
+    branches:
+      - main  # 或其他你希望触发推送的分支
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 检出当前仓库（unofficial-tyut-thesis）
+      - name: Checkout current repo
+        uses: actions/checkout@v5
+
+      # 2. 检出目标仓库（tyut-thesis-template），使用 PAT 认证
+      - name: Checkout target repo
+        uses: actions/checkout@v3
+        with:
+          repository: pdcxs/tyut-thesis-template
+          token: ${{ secrets.TARGET_REPO_TOKEN }}
+          path: target_repo
+
+      # 3. 执行文件更新
+      - name: Sync files
+        run: |
+          set -euo pipefail
+
+          # 1. lib.typ -> target_repo/lib/lib.typ
+          cp lib.typ target_repo/lib/lib.typ
+
+          # 2-5. 替换 layout/utils/assets/pages 目录
+          for dir in layouts utils assets pages; do
+            rm -rf "target_repo/lib/$dir"
+            cp -r "$dir" "target_repo/lib/$dir"
+          done
+
+          # 6. template 目录内容移动到目标仓库根目录
+          rm -rf target_repo/template   # 如果目标存在 template 目录则先删除
+          if [ -d "template" ]; then
+            cp -r template/* target_repo/
+          fi
+
+          # 7. thesis.typ 重命名为 main.typ 并替换掉原有 main.typ
+          mv target_repo/thesis.typ target_repo/main.typ
+
+          # 8. 修正 main.typ 中的导入路径
+          sed -i 's|#import "../lib.typ": documentclass|#import "./lib/lib.typ": documentclass|g' target_repo/main.typ
+
+      # 4. 提交并推送
+      - name: Commit and push
+        run: |
+          cd target_repo
+
+          # 获取当前仓库最后一次 commit 的消息
+          COMMIT_MSG=$(git -C "$GITHUB_WORKSPACE" log -1 --pretty=%B)
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+
+          # 检查暂存区是否有变更，没有则跳过提交和推送
+          if git diff --cached --quiet; then
+            echo "没有需要提交的更改，跳过推送"
+          else
+            git commit -m "$COMMIT_MSG"
+            git push origin main
+          fi
+        env:
+          GITHUB_WORKSPACE: ${{ github.workspace }}
