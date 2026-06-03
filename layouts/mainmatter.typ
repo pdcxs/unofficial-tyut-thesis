@@ -1,6 +1,6 @@
 #import "@preview/numbly:0.1.0": numbly
 #import "@preview/pointless-size:0.1.2": zh
-#import "@preview/i-figured:0.2.3"
+#import "@preview/i-figured:0.2.4"
 #import "@preview/cuti:0.4.0": show-cn-fakebold
 #import "@preview/itemize:0.2.0" as el
 #import "@preview/cjk-unbreak:0.2.3": remove-cjk-break-space

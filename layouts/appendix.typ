@@ -1,4 +1,4 @@
-#import "@preview/i-figured:0.2.3"
+#import "@preview/i-figured:0.2.4"
 #import "@preview/numbly:0.1.0": numbly
 
 // 后记，重置 heading 计数器
