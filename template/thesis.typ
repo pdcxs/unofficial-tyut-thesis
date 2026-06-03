@@ -175,10 +175,6 @@
 
 引用@tbl:timing，引用@tbl:timing-tlt，以及@fig:some-figure。引用图表时，表格和图片分别需要加上 `tbl:`和`fig:` 前缀才能正常显示编号。图片、表格以及引用的标签，尽量不要添加编号信息，以真正的内容作为标签。比如，`<root-solver-equation>` 是一个好标签，`<equation-5>` 是一个糟糕的标签。
 
-#align(
-  center,
-  (
-    stack(dir: ltr)[
       #figure(
         table(
           align: center + horizon,
@@ -187,10 +183,10 @@
           [y], [0.3s], [0.4s], [0.8s],
         ),
         caption: [常规表],
+        placement: auto,
       ) <timing>
-    ][
-      #h(50pt)
-    ][
+
+
       #figure(
         table(
           columns: 4,
@@ -202,12 +198,12 @@
           table.hline(),
         ),
         caption: [三线表],
+        placement: auto,
       ) <timing-tlt>
-    ]
-  ),
-)
 
-如果图片太大导致空白区域太大，可以添加`placement`选项，比如@fig:some-figure 所展示的用法。
+建议所有的 `figure` 都添加`placement`选项，这样可以避免由于图片过大而产生大片的文字空白。然而，这会导致图片位置可能并不会紧挨着文本。因此，在引用图片时，不要说“如下图所示”或者“如上表所示”，而是要通过引用来指明哪个图或者表。例如，如@fig:some-figure 所示（注意，“如”字后边和`@`符号之前没有空格）。建议所有的图或者表都在正文中引用，并加以说明，否则会显得比较突兀。
+
+如果觉得自动放置的图片位置不合适，可以删除 `placement` 选项。不过这样做可能会留出大片空白区域，建议谨慎考虑。
 
 #figure(
   image("imgs/author-signature.jpg", width: 50%),
@@ -231,11 +227,11 @@
   placement: auto,
 ) <multiple-figures>
 
-@fig:multiple-figures 是一个多图合并的例子。
+@fig:multiple-figures 是一个多图合并的例子。如果需要将多张图放到一起，请采用这种方式。
 
 == 引用
 
-直接引用相关 `bib` 文件中的条目即可，如这里引用了@deepLearn。中文引用@蒋有绪1998 也可以正常显示。引用会按照出现的顺序自动编号，因此，尽量不要在引用的标签中加入序号信息。例如，`ref6` 是一个糟糕的引用标签，`<Strange2012>` 则是一个不错的引用标签。默认引用为上标形式，如果想要采用非上标形式，则需要这样：另见#cite(<deepLearn>, form: "prose")的详细分析。引用也可以添加作者，比如：#cite(<蒋有绪1998>, form: "author")在#cite(<蒋有绪1998>, form: "prose")中，提出了重要的理论框架。
+直接引用相关 `bib` 文件中的条目即可，如这里引用了@deepLearn。中文引用@蒋有绪1998 也可以正常显示。引用会按照出现的顺序自动编号，因此，尽量不要在引用的标签中加入序号信息。例如，`ref6` 是一个糟糕的引用标签，`<Strange2012>` 则是一个不错的引用标签。默认引用为上标形式，如果想要采用非上标形式，则需要这样：另见#cite(<deepLearn>, form: "prose")的详细分析。引用也可以添加作者，比如：#cite(<蒋有绪1998>, form: "author")在#cite(<蒋有绪1998>, form: "prose")中，提出了重要的理论框架。不过直接引用作者可能会产生额外空格，建议作者直接手工输入。
 
 当需要在同一个地方引用多个文献时，需要使用 `multicite` 函数，如#multicite("蒋有绪1998", "deepLearn", "中国力学学会1990")，此时，引用会自动进行合并，如果不是连续的序号，则会自动断开，如#multicite("deepLearn", "中国力学学会1990")。此外，如果需要非上标形式，则可以：#multicite("蒋有绪1998", "deepLearn", "中国力学学会1990", form: "prose")。需要注意的是，`multicite` 不支持直接引用作者，即 `form` 字段不支持 `author` 选项。
 
@@ -295,6 +291,7 @@ $
     for (auto i : v) {
       cout << i << endl;
     }
+    // 这是中文注释。
     return 0;
   }
   ```,
@@ -327,9 +324,10 @@ $
   caption: [斐波那契数列],
   kind: "algo",
   supplement: "算法",
+  placement: auto,
 ) <fib>
 
-从@alg:fib 中可以看到，斐波那契数列可以用递归的方式进行计算。
+从@alg:fib 中可以看到，斐波那契数列可以用递归的方式进行计算（注意此处的引用方法）。
 
 
 // 参考文献
@@ -353,6 +351,29 @@ $
 #if twoside {
   pagebreak() + " "
 }
+
+= 插入英文文献与中文翻译的方法
+
+从 `#show:appendix` 开始，就是附录部分了。附录一般放一些额外的数学证明或者其他资料。有时会要求把英文文献与中文翻译放到附录中。
+
+推荐将英文文献和中文翻译全部导出为 PDF 文件，然后再把 PDF 文件转换为图片（每一页一张图片），然后插入到此处的附录当中。
+
+例如，英文参考文献有20页，分别放置于项目目录中的 `paper` 文件夹中的 `1.jpg`，`2.jpg` 到 `20.jpg` 当中，则可以在文档的附录中，使用@lst:pdf-insert-method 进行插入（注意，`paper/` 路径、数字 1 和 21 需要根据具体路径、页数和图片的命名方式进行变动）。
+
+#figure(
+```typst
+#for i in range (1, 21) {
+  if i > 1 {
+    image("paper/" + str(i) + ".jpg", height: 100%)
+  } else {
+    image("paper/" + str(i) + ".jpg")
+  }
+}
+```,
+caption: [插入其他 PDF 的方法]
+)<pdf-insert-method>
+
+
 
 = 关于网络演算的基本说明
 
