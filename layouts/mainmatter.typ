@@ -14,7 +14,7 @@
   text-args: auto,
   heading-font: auto,
   first-line-indent: (amount: 2em, all: true),
-  mono-font: ("Courier New", "LXGW WenKai Mono"),
+  mono-font: ("Courier New", "SimHei"),
   numbering: numbly(
     "{1}. ",
     "{1}.{2} ",
@@ -62,7 +62,7 @@
   set page(numbering: (..nums) => text(size: zh(-5), [#nums.at(0)]))
   counter(page).update(1)
 
-  // 字体
+  // 字体设置
   if text-args == auto {
     text-args = (font: ("Times New Roman", font), size: zh(-4))
   }
