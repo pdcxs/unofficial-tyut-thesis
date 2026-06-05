@@ -48,6 +48,7 @@
 
 #show: init-gb7714.with(read("references.bib"), style: "numeric", version: "2025")
 
+// 以下是声明页插入电子签名的方法
 // #decl(
 //   author-signature: place(
 //     dy: -1em,
@@ -58,6 +59,7 @@
 //     dx: 1em,
 //     image("imgs/author-signature.jpg", height: 2em)),
 //     )
+// 如果插入电子签名，请删除下行，否则会有两个声明页
 #decl()
 
 #show: preface
@@ -107,9 +109,18 @@
 #pagebreak()
 
 #show: mainmatter
+// 如果觉得公式字体不好看，可以使用将
+// #show: mainmatter
+// 替换为：
+// #show: mainmatter.with(mono-font: ("JetBrains Mono", "LXGW WenKai Mono"))
+// 这样会把公式的英文字体换为 JetBrains Mono
+// 公式的中文字体换为霞鹜文楷等宽字体。
+// 当然，需要在本地安装对应字体
+// 或者在在线APP的项目中上传对应字体。
 
 
 = 绪论
+
 == 基本书写
 
 直接输入文字即可。需要注意，如果两行之间没有空行，
@@ -117,8 +128,10 @@
 则需要多打一个空行。
 
 像现在这样。
+星号包裹内容为加粗内容，如*加粗内容*。
 
 == 无序列表
+
 可以通过以下方式添加无续列表：
 
 - 表项1
@@ -136,7 +149,7 @@
   + 表项4
 + 表项5
 
-使用如下方式更改有续列表的编号样式：
+尽量不要直接使用默认的有序列表编号，应为容易和章节标题编号混淆。可以使用如下方式更改有续列表的编号样式：
 
 #[
   #set enum(numbering: "A.a)")
@@ -164,6 +177,8 @@
   )
 ]
 
+在论文正文中，应当尽量减少列表的使用。如果想要说明一个方法的流程，可以考虑绘制流程图或者
+
 == 术语
 
 如果论文中出现缩写，推荐使用 gloss 工具进行管理，先将相关内容放入文档开头处的 make-glossary-table 中，之后再使用，例如，第一次出现#gloss("urllc")时，会写出对应的中文内容、英文全称和缩写，之后再出现
@@ -175,35 +190,35 @@
 
 引用@tbl:timing，引用@tbl:timing-tlt，以及@fig:some-figure。引用图表时，表格和图片分别需要加上 `tbl:`和`fig:` 前缀才能正常显示编号。图片、表格以及引用的标签，尽量不要添加编号信息，以真正的内容作为标签。比如，`<root-solver-equation>` 是一个好标签，`<equation-5>` 是一个糟糕的标签。
 
-      #figure(
-        table(
-          align: center + horizon,
-          columns: 4,
-          [t], [1], [2], [3],
-          [y], [0.3s], [0.4s], [0.8s],
-        ),
-        caption: [常规表],
-        placement: auto,
-      ) <timing>
+#figure(
+  table(
+    align: center + horizon,
+    columns: 4,
+    [t], [1], [2], [3],
+    [y], [0.3s], [0.4s], [0.8s],
+  ),
+  caption: [常规表],
+  placement: auto,
+) <timing>
 
 
-      #figure(
-        table(
-          columns: 4,
-          stroke: none,
-          table.hline(),
-          [t], [1], [2], [3],
-          table.hline(stroke: .5pt),
-          [y], [0.3s], [0.4s], [0.8s],
-          table.hline(),
-        ),
-        caption: [三线表],
-        placement: auto,
-      ) <timing-tlt>
+#figure(
+  table(
+    columns: 4,
+    stroke: none,
+    table.hline(),
+    [t], [1], [2], [3],
+    table.hline(stroke: .5pt),
+    [y], [0.3s], [0.4s], [0.8s],
+    table.hline(),
+  ),
+  caption: [三线表],
+  placement: auto,
+) <timing-tlt>
 
 建议所有的 `figure` 都添加`placement`选项，这样可以避免由于图片过大而产生大片的文字空白。然而，这会导致图片位置可能并不会紧挨着文本。因此，在引用图片时，不要说“如下图所示”或者“如上表所示”，而是要通过引用来指明哪个图或者表。例如，如@fig:some-figure 所示（注意，“如”字后边和`@`符号之前没有空格）。建议所有的图或者表都在正文中引用，并加以说明，否则会显得比较突兀。
 
-如果觉得自动放置的图片位置不合适，可以删除 `placement` 选项。不过这样做可能会留出大片空白区域，建议谨慎考虑。
+如果觉得自动放置的图片位置不合适，可以将 `placement` 选项的值设置为 `none`。
 
 #figure(
   image("imgs/author-signature.jpg", width: 50%),
@@ -227,13 +242,26 @@
   placement: auto,
 ) <multiple-figures>
 
-@fig:multiple-figures 是一个多图合并的例子。如果需要将多张图放到一起，请采用这种方式。
+@fig:multiple-figures 是一个多图合并的例子。如果需要将多张图放到一起，推荐采用这种方式。
 
 == 引用
 
 直接引用相关 `bib` 文件中的条目即可，如这里引用了@deepLearn。中文引用@蒋有绪1998 也可以正常显示。引用会按照出现的顺序自动编号，因此，尽量不要在引用的标签中加入序号信息。例如，`ref6` 是一个糟糕的引用标签，`<Strange2012>` 则是一个不错的引用标签。默认引用为上标形式，如果想要采用非上标形式，则需要这样：另见#cite(<deepLearn>, form: "prose")的详细分析。引用也可以添加作者，比如：#cite(<蒋有绪1998>, form: "author")在#cite(<蒋有绪1998>, form: "prose")中，提出了重要的理论框架。不过直接引用作者可能会产生额外空格，建议作者直接手工输入。
 
 当需要在同一个地方引用多个文献时，需要使用 `multicite` 函数，如#multicite("蒋有绪1998", "deepLearn", "中国力学学会1990")，此时，引用会自动进行合并，如果不是连续的序号，则会自动断开，如#multicite("deepLearn", "中国力学学会1990")。此外，如果需要非上标形式，则可以：#multicite("蒋有绪1998", "deepLearn", "中国力学学会1990", form: "prose")。需要注意的是，`multicite` 不支持直接引用作者，即 `form` 字段不支持 `author` 选项。
+
+== 目录
+
+目录会自动生成一到三级标题的索引，例如，以下内容：
+
+=== 三级标题
+
+会被自动添加到目录当中。而以下内容
+
+==== 四级标题
+
+则不会出现在目录当中。
+
 
 
 = 数学公式与代码
@@ -246,10 +274,11 @@ $
   x_(1,2) = (-b plus.minus sqrt(b^2 - 4 a c)) / (2 a),
 $ <root-finder>
 
-#[
-  #set par(first-line-indent: 0em)
+#par(first-line-indent: 0em)[
   其中， $a, b$ 和 $c$ 为原始方程的系数。根据@eqt:root-finder, 可以看到，每个一元二次方程，都有两个解，不过有时候两个根可能相等，有时候可能会出现复数根。
 ]
+
+一般而言，如果公式后边是解释公式符号的内容，意味着公式并不是这句话的结束，因此需要在公式后边添加一个英文逗号，且下一段不需要空两格。而如果公式结束就是当前句子的结束，则后边添加英文句号，下一段需要空两格开始。
 
 根据相关公式，我们可以得到 $e^x$ 的泰勒展示：
 
@@ -275,7 +304,11 @@ $
 
 === 原始效果
 
-行内代码块需要包裹在反引号内，如 `http`，块级代码则需要以三个反引号包裹，后面加上语言名称（可选），如@lst:cpp-code 所示。
+行内代码块需要包裹在反引号内，如 `http`。
+如果想要插入行内代码内容，则可以用反引号包裹，比如 `print("Hello, world!")`。如果想要行内公式有语法高亮，则需要使用三个反引号包裹，且在开始位置加入语言名称，如：```python print("Hello, world!")```不过代码内容为用 `mono-font` 字体，可能会被质疑没有遵守正文中英文字体为新罗马字体的要求，所以要谨慎使用。
+如果想要改变公式字体，参考本文件在 ```typst #show mainmatter``` 附近的注释内容（本文件中的注释内容很重要，建议仔细阅读）。
+
+块级代码则需要以三个反引号包裹，后面加上语言名称（可选，加上会有语法高亮），如@lst:cpp-code 所示。
 如果需要引用代码，需要加上`lst`，如这里引用了@lst:cpp-code。
 
 #figure(
@@ -300,10 +333,6 @@ $
 ) <cpp-code>
 
 
-==== 四级标题不会出现在目录中
-
-这是四级标题下的内容。
-
 
 === 伪代码
 
@@ -324,11 +353,25 @@ $
   caption: [斐波那契数列],
   kind: "algo",
   supplement: "算法",
-  placement: auto,
+  placement: none,
 ) <fib>
 
 从@alg:fib 中可以看到，斐波那契数列可以用递归的方式进行计算（注意此处的引用方法）。
 
+#heading(level: 1, numbering: none)[总结]
+
+使用以下方法可以插入没有编号的标题：
+
+#figure(
+  ```typst
+  #heading(level: 1, numbering: none)[章节标题]
+
+  章节后续内容……
+  ```,
+  caption: [插入无编号章节的方法],
+)
+
+例如，此处的总结章节就可以这样处理。
 
 // 参考文献
 #bibliography()
@@ -358,19 +401,21 @@ $
 
 推荐将英文文献和中文翻译全部导出为 PDF 文件，然后再把 PDF 文件转换为图片（每一页一张图片），然后插入到此处的附录当中。
 
-例如，英文参考文献有20页，分别放置于项目目录中的 `paper` 文件夹中的 `1.jpg`，`2.jpg` 到 `20.jpg` 当中，则可以在文档的附录中，使用@lst:pdf-insert-method 进行插入（注意，`paper/` 路径、数字 1 和 21 需要根据具体路径、页数和图片的命名方式进行变动）。
+例如，英文参考文献有20页，分别放置于项目目录中的 `paper` 文件夹中的 `1.jpg`，`2.jpg` 到 `20.jpg` 当中，则可以在文档的附录中，使用@lst:pdf-insert-method 进行插入（注意，`paper/` 路径和数字 21 需要根据具体路径、页数和图片的命名方式进行变动）。
 
 #figure(
-```typst
-#for i in range (1, 21) {
-  if i > 1 {
-    image("paper/" + str(i) + ".jpg", height: 100%)
-  } else {
-    image("paper/" + str(i) + ".jpg")
-  }
-}
-```,
-caption: [插入其他 PDF 的方法]
+  ```typst
+  #image("paper/1.jpg")
+  #pagebreak()
+
+  #[
+    #set page(margin: (top: 0pt, bottom: 0pt, left: 0pt, right: 0pt))
+    #for i in range(2, 21) {
+      image("paper/" + str(i) + ".jpg", height: 100%)
+    }
+  ]
+  ```,
+  caption: [插入其他 PDF 的方法],
 )<pdf-insert-method>
 
 
