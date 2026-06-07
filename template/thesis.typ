@@ -94,15 +94,30 @@
 ));
 
 #abstract(keywords: ("Typst", "TYUT", "Template", "Thesis", "毕业论文"))[
-  本项目是基于 Typst 制作的一款适用于#gloss("tyut")本科毕设论文的模板，注意此模板不是#gloss("tyut")官方模板，因此有不被承认的风险，请谨慎使用。
+  本项目是基于 Typst 制作的一款适用于#gloss("tyut")本科
+  毕设论文的模板，注意此模板不是#gloss("tyut")官方模板，
+  因此有不被承认的风险，请谨慎使用。
 
-  使用本项目需要具备基本的 Typst 使用知识，学习大概需要1小时，需要阅读#link("https://typst.app/docs/tutorial")[#text(fill: blue)[#underline[官方入门教程]]]。
+  使用本项目需要具备基本的 Typst 使用知识，
+  学习大概需要1小时，
+  需要阅读#link("https://typst.app/docs/tutorial")[
+    #text(fill: blue)[#underline[官方入门教程]]]。
 ]
 
 #abstract-en(keywords: ("Typst", "TYUT", "Template", "Thesis"))[
-  This project is based on Typst to produce a template for undergraduate BSc thesis of Taiyuan University of Technology, note that it is an unofficial template, so there exists the risk of not being recognized, please use with caution.
+  This project is based on Typst to produce
+  a template for undergraduate BSc thesis of
+  Taiyuan University of Technology,
+  note that it is an unofficial template,
+  so there exists the risk of not being recognized,
+  please use with caution.
 
-  Using this project requires basic knowledge of using Typst, which takes about 1 hour to learn and requires reading #link("https://typst.app/docs/tutorial")[#text(fill: blue)[#underline[Official Getting Started Tutorial]]].
+  Using this project requires basic knowledge of
+  using Typst, which takes about 1 hour to learn
+  and requires reading
+  #link("https://typst.app/docs/tutorial")[
+    #text(fill: blue)[#underline[
+      Official Getting Started Tutorial]]].
 ]
 
 #outline-page()
@@ -150,7 +165,8 @@
   + 表项4
 + 表项5
 
-尽量不要直接使用默认的有序列表编号，应为容易和章节标题编号混淆。可以使用如下方式更改有续列表的编号样式：
+尽量不要直接使用默认的有序列表编号，应为容易和章节标题编号混淆。
+可以使用如下方式更改有续列表的编号样式：
 
 #[
   #set enum(numbering: "A.a)")
@@ -178,18 +194,34 @@
   )
 ]
 
-在论文正文中，应当尽量减少列表的使用。如果想要说明一个方法的流程，可以考虑绘制流程图或者
+在论文正文中，应当尽量减少列表的使用。
+如果想要说明一个方法的流程，可以考虑绘制流程图或者
 
 == 术语
 
-如果论文中出现缩写，推荐使用 gloss 工具进行管理，先将相关内容放入文档开头处的 make-glossary-table 中，之后再使用，例如，第一次出现#gloss("urllc")时，会写出对应的中文内容、英文全称和缩写，之后再出现
-#gloss("urllc")时，则只出现缩写。再举一个例子：#gloss("api")应当是全称，#gloss("api")和#gloss("api")应当只显示缩写。如果术语没有中文翻译，则可以使其 description 为空字符串，例如#gloss("yolo")，第一次出现时只显示全称，之后再出现则只显示缩写，如#gloss("yolo")。
+如果论文中出现缩写，推荐使用 gloss 工具进行管理，
+先将相关内容放入文档开头处的 make-glossary-table 中，
+之后再使用，例如，第一次出现#gloss("urllc")时，
+会写出对应的中文内容、英文全称和缩写，之后再出现
+#gloss("urllc")时，则只出现缩写。再举一个例子：
+#gloss("api")应当是全称，#gloss("api")和#gloss("api")
+应当只显示缩写。
+如果术语没有中文翻译，则可以使其 description 为空字符串，
+例如#gloss("yolo")，第一次出现时只显示全称，
+之后再出现则只显示缩写，如#gloss("yolo")。
 
-如果引用了列表中没有出现的术语，则会出现红色警告，例如：#gloss("vanet")
+如果引用了列表中没有出现的术语，
+则会出现红色警告，例如：#gloss("vanet")
 
 == 图片和表格
 
-引用@tbl:timing，引用@tbl:timing-tlt，以及@fig:some-figure。引用图表时，表格和图片分别需要加上 `tbl:`和`fig:` 前缀才能正常显示编号。图片、表格以及引用的标签，尽量不要添加编号信息，以真正的内容作为标签。比如，`<root-solver-equation>` 是一个好标签，`<equation-5>` 是一个糟糕的标签。
+引用@tbl:timing，引用@tbl:timing-tlt，以及@fig:some-figure。
+引用图表时，表格和图片分别需要加上
+`tbl:`和`fig:` 前缀才能正常显示编号。
+图片、表格以及引用的标签，尽量不要添加编号信息，
+以真正的内容作为标签。
+比如，`<root-solver-equation>` 是一个好标签，
+`<equation-5>` 是一个糟糕的标签。
 
 #figure(
   table(
@@ -217,9 +249,17 @@
   placement: auto,
 ) <timing-tlt>
 
-建议所有的 `figure` 都添加`placement`选项，这样可以避免由于图片过大而产生大片的文字空白。然而，这会导致图片位置可能并不会紧挨着文本。因此，在引用图片时，不要说“如下图所示”或者“如上表所示”，而是要通过引用来指明哪个图或者表。例如，如@fig:some-figure 所示（注意，“如”字后边和`@`符号之前没有空格）。建议所有的图或者表都在正文中引用，并加以说明，否则会显得比较突兀。
+建议所有的 `figure` 都添加`placement`选项，
+这样可以避免由于图片过大而产生大片的文字空白。
+然而，这会导致图片位置可能并不会紧挨着文本。
+因此，在引用图片时，不要说“如下图所示”或者“如上表所示”，
+而是要通过引用来指明哪个图或者表。
+例如，如@fig:some-figure 所示
+（注意，“如”字后边和`@`符号之前没有空格）。
+建议所有的图或者表都在正文中引用，并加以说明，否则会显得比较突兀。
 
-如果觉得自动放置的图片位置不合适，可以将 `placement` 选项的值设置为 `none`。
+如果觉得自动放置的图片位置不合适，
+可以将 `placement` 选项的值设置为 `none`。
 
 #figure(
   image("imgs/author-signature.jpg", width: 50%),
@@ -243,13 +283,37 @@
   placement: auto,
 ) <multiple-figures>
 
-@fig:multiple-figures 是一个多图合并的例子。如果需要将多张图放到一起，推荐采用这种方式。
+@fig:multiple-figures 是一个多图合并的例子。
+如果需要将多张图放到一起，推荐采用这种方式。
 
 == 引用
 
-直接引用相关 `bib` 文件中的条目即可，如这里引用了@deepLearn。中文引用@蒋有绪1998 也可以正常显示。引用会按照出现的顺序自动编号，因此，尽量不要在引用的标签中加入序号信息。例如，`ref6` 是一个糟糕的引用标签，`<Strange2012>` 则是一个不错的引用标签。默认引用为上标形式，如果想要采用非上标形式，则需要这样：另见#cite(<deepLearn>, form: "prose")的详细分析。引用也可以添加作者，比如：#cite(<蒋有绪1998>, form: "author")在#cite(<蒋有绪1998>, form: "prose")中，提出了重要的理论框架。不过直接引用作者可能会产生额外空格，建议作者直接手工输入。
+直接引用相关 `bib` 文件中的条目即可
+（大部分论文支持导出引用为 `bib` 格式，
+如果不支持，也可以采用相应工具
+把导出的引用内容转换为 `bib` 格式），
+如这里引用了@deepLearn。中文引用@蒋有绪1998 也可以正常显示。
+引用会按照出现的顺序自动编号，因此，
+尽量不要在引用的标签中加入序号信息。
+例如，`ref6` 是一个糟糕的引用标签，
+`<Strange2012>` 则是一个不错的引用标签。
+默认引用为上标形式，如果想要采用非上标形式，则需要这样：
+另见#cite(<deepLearn>, form: "prose")的详细分析。
+引用也可以添加作者，
+比如：#cite(<蒋有绪1998>, form: "author")在#cite(<蒋有绪1998>, form: "prose")中，
+提出了重要的理论框架。不过直接引用作者可能会产生额外空格，
+建议作者直接手工输入。
+另外需要注意的是，在毕设论文的引用中，不要出现网址和 `doi` 编号，
+如果导出的 `bib` 文件有对应信息，可以手动删除。
 
-当需要在同一个地方引用多个文献时，需要使用 `multicite` 函数，如#multicite("蒋有绪1998", "deepLearn", "中国力学学会1990")，此时，引用会自动进行合并，如果不是连续的序号，则会自动断开，如#multicite("deepLearn", "中国力学学会1990")。此外，如果需要非上标形式，则可以：#multicite("蒋有绪1998", "deepLearn", "中国力学学会1990", form: "prose")。需要注意的是，`multicite` 不支持直接引用作者，即 `form` 字段不支持 `author` 选项。
+当需要在同一个地方引用多个文献时，需要使用 `multicite` 函数，
+如#multicite("蒋有绪1998", "deepLearn", "中国力学学会1990")，
+此时，引用会自动进行合并，如果不是连续的序号，则会自动断开，
+如#multicite("deepLearn", "中国力学学会1990")。此外，
+如果需要非上标形式，
+则可以：#multicite("蒋有绪1998", "deepLearn", "中国力学学会1990", form: "prose")。
+需要注意的是，`multicite` 不支持直接引用作者，
+即 `form` 字段不支持 `author` 选项。
 
 == 目录
 
@@ -269,7 +333,10 @@
 
 == 数学公式示例
 
-我们可以利用求根公式来得到一般形式的一元二次方程：$a x^2 + b x + c = 0$ 的解，其具体内容为（如果不希望公式后边段落有缩进，可以使用以下方式临时关闭）：
+我们可以利用求根公式来得到一般形式的
+一元二次方程：$a x^2 + b x + c = 0$
+的解，其具体内容为（如果不希望公式后边段落有缩进，
+可以使用 `no-indent` 函数）：
 
 $
   x_(1,2) = (-b plus.minus sqrt(b^2 - 4 a c)) / (2 a),
@@ -281,7 +348,10 @@ $ <root-finder>
   都有两个解，不过有时候两个根可能相等，有时候可能会出现复数根。
 ]
 
-一般而言，如果公式后边是解释公式符号的内容，意味着公式并不是这句话的结束，因此需要在公式后边添加一个英文逗号，且下一段不需要空两格。而如果公式结束就是当前句子的结束，则后边添加英文句号，下一段需要空两格开始。
+一般而言，如果公式后边是解释公式符号的内容，
+意味着公式并不是这句话的结束，因此需要在公式后边添加一个英文逗号，
+且下一段不需要空两格。而如果公式结束就是当前句子的结束，
+则后边添加英文句号，下一段需要空两格开始。
 
 根据相关公式，我们可以得到 $e^x$ 的泰勒展示：
 
@@ -301,18 +371,33 @@ $
   e^(i pi) + 1 = 0.
 $
 
-更多数学公式内容，参考#text(fill: blue)[#underline[#link("https://typst.app/docs/reference/math/")[*官方文档*]]]。也可使用#text(fill: blue)[#underline[#link("https://typerino.com/")[*在线公式编辑器*]]]进行公式编辑。
+更多数学公式内容，参考#text(fill: blue)[#underline[
+  #link("https://typst.app/docs/reference/math/")[*官方文档*]]]。
+也可使用#text(fill: blue)[#underline[
+  #link("https://typerino.com/")[*在线公式编辑器*]]]进行公式编辑。
 
 == 代码
 
 === 原始效果
 
 行内代码块需要包裹在反引号内，如 `http`。
-如果想要插入行内代码内容，则可以用反引号包裹，比如 `print("Hello, world!")`。如果想要行内公式有语法高亮，则需要使用三个反引号包裹，且在开始位置加入语言名称，如：```python print("Hello, world!")```不过代码内容为用 `mono-font` 字体，可能会被质疑没有遵守正文中英文字体为新罗马字体的要求，所以要谨慎使用。
-如果想要改变公式字体，参考本文件在 ```typst #show mainmatter``` 附近的注释内容（本文件中的注释内容很重要，建议仔细阅读）。
+如果想要插入行内代码内容，则可以用反引号包裹，
+比如 `print("Hello, world!")`。
+如果想要行内公式有语法高亮，则需要使用三个反引号包裹，
+且在开始位置加入语言名称，
+如：```python print("Hello, world!")```
+不过代码内容为用 `mono-font` 字体，
+可能会被质疑没有遵守正文中英文字体为新罗马字体的要求，
+所以要谨慎使用。
+此外，*过长的行内公式*可能导致段内文字间空白过大，也需加以控制。
+如果想要改变公式字体，
+参考本文件在 ```typst #show mainmatter```
+附近的注释内容（本文件中的注释内容很重要，建议仔细阅读）。
 
-块级代码则需要以三个反引号包裹，后面加上语言名称（可选，加上会有语法高亮），如@lst:cpp-code 所示。
-如果需要引用代码，需要加上`lst`，如这里引用了@lst:cpp-code。
+块级代码则需要以三个反引号包裹，
+后面加上语言名称（可选，加上会有语法高亮），
+如@lst:cpp-code 所示。如果需要引用代码，
+需要加上`lst`，如这里引用了@lst:cpp-code。
 
 #figure(
   ```cpp
@@ -359,7 +444,8 @@ $
   placement: none,
 ) <fib>
 
-从@alg:fib 中可以看到，斐波那契数列可以用递归的方式进行计算（注意此处的引用方法）。
+从@alg:fib 中可以看到，
+斐波那契数列可以用递归的方式进行计算（注意此处的引用方法）。
 
 #heading(level: 1, numbering: none)[总结]
 
@@ -381,7 +467,9 @@ $
 
 
 #acknowledgement[
-  作者在设计（论文）期间都是在×××教授全面、具体指导下完成进行的。×老师渊博的学识、敏锐的思维、民主而严谨的作风使学生受益非浅，并终生难忘。
+  作者在设计（论文）期间都是在×××教授全面、具体指导下完成进行的。
+  ×老师渊博的学识、敏锐的思维、民主而严谨的作风使学生受益非浅，
+  并终生难忘。
 
   感谢×××副教授等在毕业设计工作中给予的帮助。
 
@@ -400,11 +488,20 @@ $
 
 = 插入英文文献与中文翻译的方法
 
-从 `#show:appendix` 开始，就是附录部分了。附录一般放一些额外的数学证明或者其他资料。有时会要求把英文文献与中文翻译放到附录中。
+从 `#show:appendix` 开始，就是附录部分了。
+附录一般放一些额外的数学证明或者其他资料。
+有时会要求把英文文献与中文翻译放到附录中。
 
-推荐将英文文献和中文翻译全部导出为 PDF 文件，然后再把 PDF 文件转换为图片（每一页一张图片），然后插入到此处的附录当中。
+推荐将英文文献和中文翻译全部导出为 PDF 文件，
+然后再把 PDF 文件转换为图片（每一页一张图片），
+然后插入到此处的附录当中。
 
-例如，英文参考文献有20页，分别放置于项目目录中的 `paper` 文件夹中的 `1.jpg`，`2.jpg` 到 `20.jpg` 当中，则可以在文档的附录中，使用@lst:pdf-insert-method 进行插入（注意，`paper/` 路径和数字 21 需要根据具体路径、页数和图片的命名方式进行变动）。
+例如，英文参考文献有20页，
+分别放置于项目目录中的 `paper` 文件夹中的
+`1.jpg`，`2.jpg` 到 `20.jpg` 当中，
+则可以在文档的附录中，使用@lst:pdf-insert-method 进行插入
+（注意，`paper/` 路径和数字 21 需要根据具体路径、
+页数和图片的命名方式进行变动）。
 
 #figure(
   ```typst
@@ -428,7 +525,8 @@ $
 == 到达曲线的说明
 
 $
-  lr(chevron.l f, alpha chevron.r) = sup_(0 <= t <= s) [f(x-t) + f(t) <= alpha]
+  lr(chevron.l f, alpha chevron.r) =
+  sup_(0 <= t <= s) [f(x-t) + f(t) <= alpha]
 $ <appendix-equation>
 
 #figure(
@@ -448,7 +546,9 @@ $ <appendix-equation>
   caption: [附录表格],
 ) <appendix-table>
 
-附录中的公式引用：@eqt:appendix-equation，附录中的图片引用：@fig:appendix-figure，附录中的表格引用：@tbl:appendix-table。
+附录中的公式引用：@eqt:appendix-equation，
+附录中的图片引用：@fig:appendix-figure，
+附录中的表格引用：@tbl:appendix-table。
 
 = 一些证明细节
 
@@ -463,4 +563,5 @@ $ <appendix-equation2>
   caption: [附录图片],
 ) <appendix-figure2>
 
-附录中的公式引用：@eqt:appendix-equation2，附录中的图片引用：@fig:appendix-figure2.
+附录中的公式引用：@eqt:appendix-equation2，
+附录中的图片引用：@fig:appendix-figure2.
