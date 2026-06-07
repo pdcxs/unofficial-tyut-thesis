@@ -14,6 +14,7 @@
   mainmatter,
   gloss,
   make-glossary-table,
+  no-indent,
   bibliography,
   multicite,
   acknowledgement,
@@ -274,8 +275,10 @@ $
   x_(1,2) = (-b plus.minus sqrt(b^2 - 4 a c)) / (2 a),
 $ <root-finder>
 
-#par(first-line-indent: 0em)[
-  其中， $a, b$ 和 $c$ 为原始方程的系数。根据@eqt:root-finder, 可以看到，每个一元二次方程，都有两个解，不过有时候两个根可能相等，有时候可能会出现复数根。
+#no-indent[
+  其中， $a, b$ 和 $c$ 为原始方程的系数。
+  根据@eqt:root-finder, 可以看到，每个一元二次方程，
+  都有两个解，不过有时候两个根可能相等，有时候可能会出现复数根。
 ]
 
 一般而言，如果公式后边是解释公式符号的内容，意味着公式并不是这句话的结束，因此需要在公式后边添加一个英文逗号，且下一段不需要空两格。而如果公式结束就是当前句子的结束，则后边添加英文句号，下一段需要空两格开始。

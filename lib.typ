@@ -66,6 +66,7 @@
     ),
     gloss: gloss,
     make-glossary-table: make-glossary-table,
+    no-indent: body => par(first-line-indent: 0em, body),
     bibliography: bibliography,
     multicite: multicite,
     acknowledgement: (..args) => {
