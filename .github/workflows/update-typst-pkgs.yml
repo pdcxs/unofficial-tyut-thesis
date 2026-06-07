@@ -1,0 +1,52 @@
+name: Update Typst preview packages
+
+on:
+  schedule:
+    - cron: '0 6 * * *'   # 每天 UTC 6:00 运行
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-packages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Run update script
+        run: node .github/scripts/update-typst-packages.js
+
+      - name: Check for updates and prepare PR body
+        id: check
+        run: |
+          if [ -f .github/update-body.md ]; then
+            echo "has_updates=true" >> $GITHUB_OUTPUT
+            body=$(cat .github/update-body.md)
+            echo "body<<EOF" >> $GITHUB_OUTPUT
+            echo "$body" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            rm .github/update-body.md   # 清理临时文件
+          else
+            echo "has_updates=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request
+        if: steps.check.outputs.has_updates == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          title: 'chore: update Typst preview packages'
+          branch: update-typst-packages
+          base: main
+          body: ${{ steps.check.outputs.body }}
+          labels: |
+            automated
+            dependencies
