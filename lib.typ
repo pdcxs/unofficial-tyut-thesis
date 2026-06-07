@@ -21,14 +21,24 @@
   reference-data: none,
   reference-font: ("Times New Roman", "SimSun"),
   reference-font-size: zh(5),
+  reference-show-url: false,
+  reference-show-doi: false,
+  reference-show-accessed: false,
   prose-offset: 0em,
 ) = {
   return (
     doc: (body, ..args) => {
       doc(body, ..args, info: info + args.named().at("info", default: (:)))
     },
-    init-bib: (body, data: reference-data) => {
-      show: init-gb7714.with(reference-data, style: "numeric", version: "2025")
+    init-bib: body => {
+      show: init-gb7714.with(
+        reference-data,
+        style: "numeric",
+        version: "2025",
+        show-url: reference-show-url,
+        show-doi: reference-show-doi,
+        show-accessed: reference-show-accessed,
+      )
       body
     },
     cover: (..args) => {
