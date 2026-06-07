@@ -34,6 +34,7 @@
   caption-style: none,
   caption-size: zh(5),
   separator: "  ",
+  prose-offset: -0.08em,
   ..args,
   it,
 ) = {
@@ -139,6 +140,15 @@
 
   // 去除空行连接时中文中间的空格
   show: remove-cjk-break-space
+
+  // 调整 prose cite 的基线
+  show cite: it => {
+    if it.form == "prose" {
+      box(baseline: prose-offset, it)
+    } else {
+      it
+    }
+  }
 
   it
 }

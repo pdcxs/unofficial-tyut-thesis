@@ -1,5 +1,4 @@
 #import "../lib.typ": documentclass
-#import "@preview/gb7714-bilingual:0.2.3": init-gb7714
 #import "@preview/codly:1.3.0": codly-init // 如果不需要插入源代码，可以删除此行代码
 #import "@preview/algo:0.3.6": * // 如不需要伪代码，可以删除此行代码
 
@@ -15,6 +14,7 @@
   gloss,
   make-glossary-table,
   no-indent,
+  init-bib,
   bibliography,
   multicite,
   acknowledgement,
@@ -39,15 +39,13 @@
     // author-sign-date: datetime.today(), // 承诺书作者签名日期
     // supervisor-sign-date: datetime(year: 1997, month: 1, day:1), // 承诺书导师签名日期
   ),
+  reference-data: read("./references.bib"),
   // font: "KaiTi", // Main Font
   // reference-font: ("Times New Roman", "SimSun"),
 )
 
 #show: doc
-#show: codly-init.with() // 如果不需要插入源代码，可以删除此行代码
 #cover()
-
-#show: init-gb7714.with(read("references.bib"), style: "numeric", version: "2025")
 
 // 以下是声明页插入电子签名的方法
 // #decl(
@@ -62,6 +60,16 @@
 //     )
 // 如果插入电子签名，请删除下行，否则会有两个声明页
 #decl()
+
+// 如果需要插入任务书，可将任务书转换为 PDF
+// 再把 PDF 转换为图片，使用以下工具：
+// https://smallpdf.com/pdf-to-jpg，
+// 然后使用以下代码插入：
+// #[
+//   #set page(margin: (top: 0pt, bottom: 0pt, left: 0pt, right: 0pt))
+//   #image("page-1.jpg", height: 100%)
+//   #image("page-2.jpg", height: 100%)
+// ]
 
 #show: preface
 
@@ -120,12 +128,14 @@
       Official Getting Started Tutorial]]].
 ]
 
+#show: init-bib
+
 #outline-page()
 
 #pagebreak()
 
 #show: mainmatter
-// 如果觉得公式字体不好看，可以使用将
+// 如果觉得公式字体不好看，可以将
 // #show: mainmatter
 // 替换为：
 // #show: mainmatter.with(mono-font: ("JetBrains Mono", "LXGW WenKai Mono"))
@@ -133,6 +143,8 @@
 // 公式的中文字体换为霞鹜文楷等宽字体。
 // 当然，需要在本地安装对应字体
 // 或者在在线APP的项目中上传对应字体。
+
+#show: codly-init.with() // 如果不需要插入源代码，可以删除此行代码
 
 
 = 绪论
@@ -144,6 +156,7 @@
 则需要多打一个空行。
 
 像现在这样。
+
 星号包裹内容为加粗内容，如*加粗内容*。
 
 == 无序列表
@@ -195,7 +208,7 @@
 ]
 
 在论文正文中，应当尽量减少列表的使用。
-如果想要说明一个方法的流程，可以考虑绘制流程图或者
+如果想要说明一个方法的流程，可以考虑绘制流程图或者使用伪代码。
 
 == 术语
 
@@ -253,13 +266,16 @@
 这样可以避免由于图片过大而产生大片的文字空白。
 然而，这会导致图片位置可能并不会紧挨着文本。
 因此，在引用图片时，不要说“如下图所示”或者“如上表所示”，
-而是要通过引用来指明哪个图或者表。
+而是要通过引用编号来指明哪个图或者表。
 例如，如@fig:some-figure 所示
-（注意，“如”字后边和`@`符号之前没有空格）。
+（注意，“如”字后边和`@`符号之前没有空格，但是
+标签结束后需要加一个空格）。
 建议所有的图或者表都在正文中引用，并加以说明，否则会显得比较突兀。
 
 如果觉得自动放置的图片位置不合适，
-可以将 `placement` 选项的值设置为 `none`。
+可以将 `placement` 选项的值设置为 `none` 或者 `bottom` 和 `top`。
+
+建议表格尽量使用三线表的形式，美观一些。
 
 #figure(
   image("imgs/author-signature.jpg", width: 50%),
@@ -298,9 +314,10 @@
 例如，`ref6` 是一个糟糕的引用标签，
 `<Strange2012>` 则是一个不错的引用标签。
 默认引用为上标形式，如果想要采用非上标形式，则需要这样：
-另见#cite(<deepLearn>, form: "prose")的详细分析。
+另见 #cite(<deepLearn>, form: "prose") 的详细分析。
 引用也可以添加作者，
-比如：#cite(<蒋有绪1998>, form: "author")在#cite(<蒋有绪1998>, form: "prose")中，
+比如：#cite(<蒋有绪1998>, form: "author")在
+#cite(<蒋有绪1998>, form: "prose") 中，
 提出了重要的理论框架。不过直接引用作者可能会产生额外空格，
 建议作者直接手工输入。
 另外需要注意的是，在毕设论文的引用中，不要出现网址和 `doi` 编号，
@@ -378,7 +395,7 @@ $
 
 == 代码
 
-=== 原始效果
+=== 行内代码与块代码
 
 行内代码块需要包裹在反引号内，如 `http`。
 如果想要插入行内代码内容，则可以用反引号包裹，
@@ -449,7 +466,7 @@ $
 
 #heading(level: 1, numbering: none)[总结]
 
-使用以下方法可以插入没有编号的标题：
+使用如@lst:no-number-title 中的方法插入没有编号的标题：
 
 #figure(
   ```typst
@@ -458,9 +475,15 @@ $
   章节后续内容……
   ```,
   caption: [插入无编号章节的方法],
-)
+)<no-number-title>
 
 例如，此处的总结章节就可以这样处理。
+但是需要注意，无编号章节的
+图片、公式、表格、代码、二级以下的标题等
+编号内容不会自动更新章节编号，
+如@lst:no-number-title 所示。
+因此，建议无编号章节只用于最后的章节且不要出现引用内容。
+或者不要使用无编号章节。
 
 // 参考文献
 #bibliography()
@@ -493,7 +516,10 @@ $
 有时会要求把英文文献与中文翻译放到附录中。
 
 推荐将英文文献和中文翻译全部导出为 PDF 文件，
-然后再把 PDF 文件转换为图片（每一页一张图片），
+然后再使用
+#link("https://smallpdf.com/pdf-to-jpg")[
+  #text(fill: blue)[#underline[SmallPDF]]]
+把 PDF 文件转换为图片（每一页一张图片），
 然后插入到此处的附录当中。
 
 例如，英文参考文献有20页，
@@ -511,14 +537,22 @@ $
   #[
     #set page(margin: (top: 0pt, bottom: 0pt, left: 0pt, right: 0pt))
     #for i in range(2, 21) {
-      image("paper/" + str(i) + ".jpg", height: 100%)
+      image("paper/" + str(i) + ".jpg", width: 100%)
     }
   ]
   ```,
   caption: [插入其他 PDF 的方法],
 )<pdf-insert-method>
 
+由于第一页有章节标题，因此无法将插入的图片铺满整个页面。
+后续内容则可以将页边距设置为 0 后，
+插入铺满页面的图片。如果觉得插入的图片将论文页码
+覆盖不太好看，可以将图片的上下空白区域裁剪掉
+以显示出论文的页码。
 
+目前 `Typst` 正在准备支持目录扫描功能，
+此功能实现后插入其他 PDF 将直接实现为新的模板函数，
+无需再手写代码。
 
 = 关于网络演算的基本说明
 

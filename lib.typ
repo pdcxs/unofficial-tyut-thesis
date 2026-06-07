@@ -10,21 +10,26 @@
 #import "pages/acknowledgement.typ": acknowledgement
 #import "layouts/appendix.typ": appendix
 #import "utils/bilingual.typ": bibliography
-#import "@preview/gb7714-bilingual:0.2.3": multicite
+#import "@preview/gb7714-bilingual:0.2.3": init-gb7714, multicite
+#import "@preview/pointless-size:0.1.2": zh
 
 #let documentclass(
   info: (:),
   twoside: false,
   anonymous: false,
   font: "SimSun",
+  reference-data: none,
   reference-font: ("Times New Roman", "SimSun"),
+  reference-font-size: zh(5),
+  prose-offset: 0em,
 ) = {
   return (
-    doc: (..args) => {
-      doc(
-        ..args,
-        info: info + args.named().at("info", default: (:)),
-      )
+    doc: (body, ..args) => {
+      doc(body, ..args, info: info + args.named().at("info", default: (:)))
+    },
+    init-bib: (body, data: reference-data) => {
+      show: init-gb7714.with(reference-data, style: "numeric", version: "2025")
+      body
     },
     cover: (..args) => {
       cover(
@@ -62,12 +67,18 @@
     mainmatter: (..args) => mainmatter(
       twoside: twoside,
       font: font,
+      prose-offset: prose-offset,
       ..args,
     ),
     gloss: gloss,
     make-glossary-table: make-glossary-table,
     no-indent: body => par(first-line-indent: 0em, body),
-    bibliography: bibliography,
+    bibliography: (..args) => bibliography(
+      font: reference-font,
+      font-size: reference-font-size,
+      prose-offset: prose-offset,
+      ..args,
+    ),
     multicite: multicite,
     acknowledgement: (..args) => {
       acknowledgement(

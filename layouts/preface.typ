@@ -6,7 +6,9 @@
   if twoside {
     pagebreak() + " "
   }
-  counter(page).update(0)
+
+  pagebreak(weak: true)
+  counter(page).update(1)
   set page(numbering: "I")
   it
 }
